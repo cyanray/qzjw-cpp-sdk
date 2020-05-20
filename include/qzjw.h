@@ -28,8 +28,10 @@ namespace cyanray
 			string Classroom;
 			// 上课星期(1~7)
 			int Week;
-			// 第N讲(1~6), TODO: 更换合适的名称
-			int Lesson;
+			// 从第N讲开始(1~6), TODO: 更换合适的名称
+			int StartLesson;
+			// 到第N讲结束(1~6), TODO: 更换合适的名称
+			int EndLesson;
 		};
 		// 考试结果
 		struct ExamResult
@@ -64,7 +66,7 @@ namespace cyanray
 		 * \return 始终为 true，有错误会抛出异常
 		 */
 		bool Login(const string& uid, const string& pwd);
-		vector<Course> GetCourses(const string&, int week, const string& semester = "");
+		vector<Course> GetCourses(const string& uid, int week, const string& semester = "");
 		vector<ExamResult> GetExamResult(const string& uid, const string& semester = "");
 		string GetToken() const
 		{
