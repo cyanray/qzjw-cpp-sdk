@@ -66,6 +66,13 @@ namespace cyanray
 		 * \return 始终为 true，有错误会抛出异常
 		 */
 		bool Login(const string& uid, const string& pwd);
+		/**
+		 * \brief 获取课表
+		 * \param uid 学号
+		 * \param week 周次
+		 * \param semester 学期(如：2019-2020-2)，留空为当前学期 
+		 * \return vector<Course>，出错会抛出异常
+		 */
 		vector<Course> GetCourses(const string& uid, int week, const string& semester = "");
 		vector<ExamResult> GetExamResult(const string& uid, const string& semester = "");
 		string GetToken() const
