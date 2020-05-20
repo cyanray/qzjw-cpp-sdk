@@ -23,7 +23,21 @@ int main()
 	{
 		cout << "登录出错: " << ex.what() << endl;
 	}
-	
-	
+
+	try
+	{
+		auto res = jw.GetCourses(uid, 1);
+		for (auto&& c : res)
+		{
+			cout << c.Name << endl;
+		}
+
+	}
+	catch (const exception& ex)
+	{
+		cout << "出现错误: " << ex.what() << endl;
+	}
+
+
 	return 0;
 }
