@@ -5,6 +5,7 @@
 ## 项目依赖
 
 **libcurl** : 用以发起 HTTP 请求。
+**nlohmann/json** : json 解析库。
 
 ## 使用文档
 
