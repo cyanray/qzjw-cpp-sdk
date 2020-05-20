@@ -50,13 +50,14 @@ namespace cyanray
 		if (resp.StatusCode != 200) throw runtime_error("返回非 200 状态码.");
 		json re_json = json::parse(resp.Content);
 		vector<Course> res;
+		res.reserve(re_json.size());
 		for (auto&& ele : re_json)
 		{
-			int week, lesson1, lesson2;
+			int cweek, lesson1, lesson2;
 			string t = ele["kcsj"].get<string>();
 			stringstream ss;
 			ss << t.substr(0, 1);
-			ss >> week;
+			ss >> cweek;
 			ss.str("");
 			ss << t.substr(1, 2);
 			ss >> lesson1;
@@ -75,7 +76,7 @@ namespace cyanray
 			c.StartTime = ele["kssj"].get<string>();
 			c.EndTime = ele["jssj"].get<string>();
 			c.Schedule = ele["kkzc"].get<string>();
-			c.Week = week;
+			c.Week = cweek;
 			c.StartLesson = lesson1;
 			c.EndLesson = lesson2;
 			res.push_back(c);
