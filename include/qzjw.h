@@ -11,54 +11,65 @@ namespace cyanray
 	class Jw
 	{
 	public:
-		// ¿Î³ÌĞÅÏ¢
+		// è¯¾ç¨‹ä¿¡æ¯
 		struct Course
 		{
-			// ¿Î³ÌÃû³Æ
+			// è¯¾ç¨‹åç§°
 			string Name;
-			// ÉÏ¿ÎÊ±¼ä
+			// ä¸Šè¯¾æ—¶é—´
 			string StartTime;
-			// ½áÊøÊ±¼ä
+			// ç»“æŸæ—¶é—´
 			string EndTime;
-			// ¿ª¿ÎÖÜ´Î
+			// å¼€è¯¾å‘¨æ¬¡
 			string Schedule;
-			// ½²Ê¦ĞÕÃû
+			// è®²å¸ˆå§“å
 			string Instructor;
-			// ½ÌÊÒÃû³Æ
+			// æ•™å®¤åç§°
 			string Classroom;
-			// ÉÏ¿ÎĞÇÆÚ(1~7)
+			// ä¸Šè¯¾æ˜ŸæœŸ(1~7)
 			int Week;
-			// µÚN½²(1~6), TODO: ¸ü»»ºÏÊÊµÄÃû³Æ
+			// ç¬¬Nè®²(1~6), TODO: æ›´æ¢åˆé€‚çš„åç§°
 			int Lesson;
 		};
-		// ¿¼ÊÔ½á¹û
+		// è€ƒè¯•ç»“æœ
 		struct ExamResult
 		{
-			// ¿Î³ÌÃû³Æ
+			// è¯¾ç¨‹åç§°
 			string Name;
-			// Ñ§ÆÚ
+			// å­¦æœŸ
 			string Semester;
-			// ¿Î³ÌÀà±ğ(±ØĞŞ/Ñ¡ĞŞ)
+			// è¯¾ç¨‹ç±»åˆ«(å¿…ä¿®/é€‰ä¿®)
 			string CourseCategory;
-			// ¿Î³ÌĞÔÖÊ(Í¨Ê¶½ÌÓı¿Î)
+			// è¯¾ç¨‹æ€§è´¨(é€šè¯†æ•™è‚²è¯¾)
 			string CourseNature;
-			// ¿¼ÊÔĞÔÖÊ(Õı³£¿¼ÊÔ¡¢²¹¿¼¡¢ÖØĞŞ)
+			// è€ƒè¯•æ€§è´¨(æ­£å¸¸è€ƒè¯•ã€è¡¥è€ƒã€é‡ä¿®)
 			string ExamNature;
-			// ³É¼¨
+			// æˆç»©
 			int Score;
-			// Ñ§·Ö
+			// å­¦åˆ†
 			int Credit;
 		};
-		Jw(const string& api_prefix);
+
 		/**
-		 * \brief µÇÂ¼½ÌÎñÏµÍ³
-		 * \param uid Ñ§ºÅ
-		 * \param pwd ÃÜÂë
-		 * \return Ê¼ÖÕÎª true£¬ÓĞ´íÎó»áÅ×³öÒì³£
+		 * \brief åˆå§‹åŒ–æ•™åŠ¡ç³»ç»Ÿç±»
+		 * \param api_prefix æ•™åŠ¡ç³»ç»Ÿåœ°å€å‰ç¼€
+		 */
+		explicit Jw(const string& api_prefix) :api_prefix_(api_prefix)
+		{
+		}
+		/**
+		 * \brief ç™»å½•æ•™åŠ¡ç³»ç»Ÿ
+		 * \param uid å­¦å·
+		 * \param pwd å¯†ç 
+		 * \return å§‹ç»ˆä¸º trueï¼Œæœ‰é”™è¯¯ä¼šæŠ›å‡ºå¼‚å¸¸
 		 */
 		bool Login(const string& uid, const string& pwd);
 		vector<Course> GetCourses(const string&, int week, const string& semester = "");
 		vector<ExamResult> GetExamResult(const string& uid, const string& semester = "");
+		string GetToken() const
+		{
+			return token_;
+		}
 	private:
 		string api_prefix_;
 		string token_;

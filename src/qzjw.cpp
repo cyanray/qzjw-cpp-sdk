@@ -20,8 +20,8 @@ namespace cyanray
 			<< pwd;
 		HTTP http;
 		auto resp = http.Get(url.str());
-		if (!resp.Ready) throw runtime_error("ÇëÇóÎÞÏìÓ¦.");
-		if (resp.StatusCode != 200) throw runtime_error("·µ»Ø·Ç 200 ×´Ì¬Âë.");
+		if (!resp.Ready) throw runtime_error("è¯·æ±‚æ— å“åº”.");
+		if (resp.StatusCode != 200) throw runtime_error("è¿”å›žéž 200 çŠ¶æ€ç .");
 		json re_json = json::parse(resp.Content);
 		string flag = re_json["flag"].get<string>();
 		if(flag != "1")
@@ -30,10 +30,6 @@ namespace cyanray
 		}
 		token_ = re_json["token"].get<string>();
 		return true;
-	}
-
-	vector<Jw::Course> Jw::GetCourses(const string&, int week, const string& semester)
-	{
 	}
 
 }
