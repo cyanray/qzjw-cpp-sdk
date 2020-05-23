@@ -50,6 +50,8 @@ namespace cyanray
 		if (resp.StatusCode != 200) throw runtime_error("返回非 200 状态码.");
 		json re_json = json::parse(resp.Content);
 		vector<Course> res;
+		// fuck 不走寻常路的json
+		if (re_json.size() == 0 || re_json[0].is_null()) return res;
 		res.reserve(re_json.size());
 		for (auto&& ele : re_json)
 		{
