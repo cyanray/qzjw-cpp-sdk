@@ -83,4 +83,8 @@ namespace cyanray
 		}
 		return res;
 	}
+
+	vector<Jw::ExamResult> Jw::GetExamResult(const string& uid, const string& semester)
+	{
+	}
 }
