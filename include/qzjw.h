@@ -44,12 +44,10 @@ namespace cyanray
 			string CourseCategory;
 			// 课程性质(通识教育课)
 			string CourseNature;
-			// 考试性质(正常考试、补考、重修)
-			string ExamNature;
 			// 成绩
-			int Score;
+			string Score;
 			// 学分
-			int Credit;
+			double Credit;
 		};
 
 		/**

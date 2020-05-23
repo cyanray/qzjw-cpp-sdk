@@ -39,5 +39,20 @@ int main()
 	}
 
 
+	try
+	{
+		auto res = jw.GetExamResult(uid);
+		for (auto&& c : res)
+		{
+			cout << c.Name << endl;
+		}
+
+	}
+	catch (const exception& ex)
+	{
+		cout << "出现错误: " << ex.what() << endl;
+	}
+
+
 	return 0;
 }

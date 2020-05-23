@@ -88,5 +88,40 @@ namespace cyanray
 
 	vector<Jw::ExamResult> Jw::GetExamResult(const string& uid, const string& semester)
 	{
+		if (token_.empty()) throw runtime_error("尚未登录.");
+		stringstream url;
+		url << api_prefix_
+			<< "/app.do?method=getCjcx&xh="
+			<< uid
+			<< "&xnxqid="
+			<< semester;
+		HTTP http;
+		http.AddHeader("token", token_);
+		auto resp = http.Get(url.str());
+		if (!resp.Ready) throw runtime_error("请求无响应.");
+		if (resp.StatusCode != 200) throw runtime_error("返回非 200 状态码.");
+		json re_json = json::parse(resp.Content);
+		vector<ExamResult> res;
+		// fuck 不走寻常路的json
+		if (re_json.size() == 0 || re_json[0].is_null()) return res;
+		res.reserve(re_json.size());
+		for (auto&& ele : re_json)
+		{
+			ExamResult exam_result;
+			try
+			{
+				exam_result.Name = ele["kcmc"].get<string>();
+				exam_result.Score = ele["zcj"].get<string>();
+				exam_result.Credit = ele["xf"].get<double>();
+				exam_result.Semester = ele["xqmc"].get<string>();
+				exam_result.CourseCategory = ele["kclbmc"].get<string>();
+				exam_result.CourseNature = ele["kcxzmc"].get<string>();
+			}
+			catch (...)
+			{
+			}
+			res.push_back(exam_result);
+		}
+		return res;
 	}
 }

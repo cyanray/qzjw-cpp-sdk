@@ -16,7 +16,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME} PRIVATE CURLWrapper)
 target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json nlohmann_json::nlohmann_json)
 
-option(QZJW_CPP_SDK_BUILD_EXAMPLES "Build examples" OFF)
+option(QZJW_CPP_SDK_BUILD_EXAMPLES "Build examples" ON)
 if(QZJW_CPP_SDK_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif(QZJW_CPP_SDK_BUILD_EXAMPLES)
