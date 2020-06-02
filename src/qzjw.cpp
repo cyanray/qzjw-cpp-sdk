@@ -73,10 +73,20 @@ namespace cyanray
 			{
 				c.Classroom = ele["jsmc"].get<string>();
 			}
-			catch (...) {}
+			catch (...)
+			{
+				c.Classroom = "?";
+			}
 			c.Instructor = ele["jsxm"].get<string>();
 			c.StartTime = ele["kssj"].get<string>();
-			c.EndTime = ele["jssj"].get<string>();
+			try
+			{
+				c.EndTime = ele["jssj"].get<string>();
+			}
+			catch (...)
+			{
+				c.EndTime = "?";
+			}
 			c.Schedule = ele["kkzc"].get<string>();
 			c.Week = cweek;
 			c.StartLesson = lesson1;
