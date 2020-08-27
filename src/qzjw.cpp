@@ -55,20 +55,25 @@ namespace cyanray
 		res.reserve(re_json.size());
 		for (auto&& ele : re_json)
 		{
-			int cweek, lesson1, lesson2;
+			unsigned cweek, lesson1, lesson2;
 			string t = ele["kcsj"].get<string>();
 			stringstream ss;
-			ss << t.substr(0, 1);
+			ss.str(t.substr(0, 1));
 			ss >> cweek;
-			ss.str("");
-			ss << t.substr(1, 2);
+			ss.str(t.substr(1, 2));
 			ss >> lesson1;
-			ss.str("");
-			ss << t.substr(2, 2);
+			ss.str(t.substr(2, 2));
 			ss >> lesson2;
 
 			Course c;
-			c.Name = ele["kcmc"].get<string>();
+			try
+			{
+				c.Name = ele["kcmc"].get<string>();
+			}
+			catch (...)
+			{
+				c.Name = "?";
+			}
 			try
 			{
 				c.Classroom = ele["jsmc"].get<string>();
@@ -78,7 +83,14 @@ namespace cyanray
 				c.Classroom = "?";
 			}
 			c.Instructor = ele["jsxm"].get<string>();
-			c.StartTime = ele["kssj"].get<string>();
+			try
+			{
+				c.StartTime = ele["kssj"].get<string>();
+			}
+			catch (...)
+			{
+				c.StartTime = "?";
+			}
 			try
 			{
 				c.EndTime = ele["jssj"].get<string>();
@@ -87,7 +99,14 @@ namespace cyanray
 			{
 				c.EndTime = "?";
 			}
-			c.Schedule = ele["kkzc"].get<string>();
+			try
+			{
+				c.Schedule = ele["kkzc"].get<string>();
+			}
+			catch (...)
+			{
+				c.Schedule = "?";
+			}
 			c.Week = cweek;
 			c.StartLesson = lesson1;
 			c.EndLesson = lesson2;
@@ -134,4 +153,20 @@ namespace cyanray
 		}
 		return res;
 	}
+
+	string Jw::GetMajor(const string& uid)
+	{
+		stringstream url;
+		url << api_prefix_ 
+			<<"/app.do?method=getUserInfo&xh="
+			<< uid;
+		HTTP http;
+		http.AddHeader("token", token_);
+		auto resp = http.Get(url.str());
+		if (!resp.Ready) throw runtime_error("请求无响应.");
+		if (resp.StatusCode != 200) throw runtime_error("返回非 200 状态码.");
+		json re_json = json::parse(resp.Content);
+		return re_json["zymc"];
+	}
+
 }

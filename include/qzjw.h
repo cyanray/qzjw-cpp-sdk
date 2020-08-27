@@ -73,6 +73,7 @@ namespace cyanray
 		 */
 		vector<Course> GetCourses(const string& uid, int week, const string& semester = "");
 		vector<ExamResult> GetExamResult(const string& uid, const string& semester = "");
+		string GetMajor(const string& uid);
 		string GetToken() const
 		{
 			return token_;
